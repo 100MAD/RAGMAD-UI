@@ -99,6 +99,104 @@ export type DocumentOut = {
 };
 
 /**
+ * EvaluationQuestionOut
+ */
+export type EvaluationQuestionOut = {
+    /**
+     * Question
+     */
+    question: string;
+    /**
+     * Response
+     */
+    response: string;
+    /**
+     * Reference
+     */
+    reference: string;
+    /**
+     * Retrieved Contexts
+     */
+    retrieved_contexts?: string | Array<string> | null;
+    /**
+     * Scores
+     */
+    scores?: {
+        [key: string]: number;
+    };
+};
+
+/**
+ * EvaluationRunOut
+ */
+export type EvaluationRunOut = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Config
+     */
+    config: {
+        [key: string]: unknown;
+    };
+    summary: EvaluationSummaryOut;
+    /**
+     * Questions
+     */
+    questions: Array<EvaluationQuestionOut>;
+};
+
+/**
+ * EvaluationRunSummaryOut
+ */
+export type EvaluationRunSummaryOut = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Config
+     */
+    config: {
+        [key: string]: unknown;
+    };
+    summary: EvaluationSummaryOut;
+};
+
+/**
+ * EvaluationSummaryOut
+ */
+export type EvaluationSummaryOut = {
+    /**
+     * Question Count
+     */
+    question_count: number;
+    /**
+     * Scored Count
+     */
+    scored_count: number;
+    /**
+     * Overall Score
+     */
+    overall_score?: number | null;
+    /**
+     * Metrics
+     */
+    metrics: {
+        [key: string]: MetricStatsOut;
+    };
+};
+
+/**
  * HTTPValidationError
  */
 export type HttpValidationError = {
@@ -146,6 +244,28 @@ export type MessageOut = {
      * Created At
      */
     created_at: string;
+};
+
+/**
+ * MetricStatsOut
+ */
+export type MetricStatsOut = {
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * Mean
+     */
+    mean: number;
+    /**
+     * Min
+     */
+    min: number;
+    /**
+     * Max
+     */
+    max: number;
 };
 
 /**
@@ -521,6 +641,70 @@ export type MessagesCreateResponses = {
 };
 
 export type MessagesCreateResponse = MessagesCreateResponses[keyof MessagesCreateResponses];
+
+export type EvaluationLatestData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/evaluation';
+};
+
+export type EvaluationLatestResponses = {
+    /**
+     * Successful Response
+     */
+    200: EvaluationRunOut;
+};
+
+export type EvaluationLatestResponse = EvaluationLatestResponses[keyof EvaluationLatestResponses];
+
+export type EvaluationListData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/evaluation/runs';
+};
+
+export type EvaluationListResponses = {
+    /**
+     * Response Evaluation-List
+     *
+     * Successful Response
+     */
+    200: Array<EvaluationRunSummaryOut>;
+};
+
+export type EvaluationListResponse = EvaluationListResponses[keyof EvaluationListResponses];
+
+export type EvaluationGetData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/evaluation/runs/{run_id}';
+};
+
+export type EvaluationGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type EvaluationGetError = EvaluationGetErrors[keyof EvaluationGetErrors];
+
+export type EvaluationGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: EvaluationRunOut;
+};
+
+export type EvaluationGetResponse = EvaluationGetResponses[keyof EvaluationGetResponses];
 
 export type HealthCheckData = {
     body?: never;

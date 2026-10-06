@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { chatsCreate, chatsDelete, chatsGet, chatsList, chatsUpdate, documentsDelete, documentsDownload, documentsList, documentsUpload, healthCheck, messagesCreate, messagesList, type Options } from '../sdk.gen';
-import type { ChatsCreateData, ChatsCreateError, ChatsCreateResponse, ChatsDeleteData, ChatsDeleteError, ChatsDeleteResponse, ChatsGetData, ChatsGetError, ChatsGetResponse, ChatsListData, ChatsListResponse, ChatsUpdateData, ChatsUpdateError, ChatsUpdateResponse, DocumentsDeleteData, DocumentsDeleteError, DocumentsDeleteResponse, DocumentsDownloadData, DocumentsDownloadError, DocumentsListData, DocumentsListError, DocumentsListResponse, DocumentsUploadData, DocumentsUploadError, DocumentsUploadResponse, HealthCheckData, HealthCheckResponse, MessagesCreateData, MessagesCreateError, MessagesCreateResponse, MessagesListData, MessagesListError, MessagesListResponse } from '../types.gen';
+import { chatsCreate, chatsDelete, chatsGet, chatsList, chatsUpdate, documentsDelete, documentsDownload, documentsList, documentsUpload, evaluationGet, evaluationLatest, evaluationList, healthCheck, messagesCreate, messagesList, type Options } from '../sdk.gen';
+import type { ChatsCreateData, ChatsCreateError, ChatsCreateResponse, ChatsDeleteData, ChatsDeleteError, ChatsDeleteResponse, ChatsGetData, ChatsGetError, ChatsGetResponse, ChatsListData, ChatsListResponse, ChatsUpdateData, ChatsUpdateError, ChatsUpdateResponse, DocumentsDeleteData, DocumentsDeleteError, DocumentsDeleteResponse, DocumentsDownloadData, DocumentsDownloadError, DocumentsListData, DocumentsListError, DocumentsListResponse, DocumentsUploadData, DocumentsUploadError, DocumentsUploadResponse, EvaluationGetData, EvaluationGetError, EvaluationGetResponse, EvaluationLatestData, EvaluationLatestResponse, EvaluationListData, EvaluationListResponse, HealthCheckData, HealthCheckResponse, MessagesCreateData, MessagesCreateError, MessagesCreateResponse, MessagesListData, MessagesListError, MessagesListResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -230,6 +230,60 @@ export const messagesCreateMutation = (options?: Partial<Options<MessagesCreateD
     };
     return mutationOptions;
 };
+
+export const evaluationLatestQueryKey = (options?: Options<EvaluationLatestData>) => createQueryKey('evaluationLatest', options);
+
+/**
+ * Latest
+ */
+export const evaluationLatestOptions = (options?: Options<EvaluationLatestData>) => queryOptions<EvaluationLatestResponse, DefaultError, EvaluationLatestResponse, ReturnType<typeof evaluationLatestQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await evaluationLatest({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: evaluationLatestQueryKey(options)
+});
+
+export const evaluationListQueryKey = (options?: Options<EvaluationListData>) => createQueryKey('evaluationList', options);
+
+/**
+ * List
+ */
+export const evaluationListOptions = (options?: Options<EvaluationListData>) => queryOptions<EvaluationListResponse, DefaultError, EvaluationListResponse, ReturnType<typeof evaluationListQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await evaluationList({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: evaluationListQueryKey(options)
+});
+
+export const evaluationGetQueryKey = (options: Options<EvaluationGetData>) => createQueryKey('evaluationGet', options);
+
+/**
+ * Get
+ */
+export const evaluationGetOptions = (options: Options<EvaluationGetData>) => queryOptions<EvaluationGetResponse, EvaluationGetError, EvaluationGetResponse, ReturnType<typeof evaluationGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await evaluationGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: evaluationGetQueryKey(options)
+});
 
 export const healthCheckQueryKey = (options?: Options<HealthCheckData>) => createQueryKey('healthCheck', options);
 

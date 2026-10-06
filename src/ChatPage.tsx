@@ -1,4 +1,5 @@
 import {
+  BarChartOutlined,
   CopyOutlined,
   DeleteOutlined,
   DownloadOutlined,
@@ -14,7 +15,7 @@ import { App, Button, Drawer, List, Popconfirm, Tag, Tooltip, Upload } from 'ant
 import type { UploadProps } from 'antd'
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   chatsCreateMutation,
   chatsDeleteMutation,
@@ -291,6 +292,10 @@ export default function ChatPage() {
             onActiveChange={(key) => navigate(`/chats/${key}`)}
           />
         </div>
+        <Link to="/evaluation" className="eval-sidebar-link">
+          <BarChartOutlined />
+          Evaluation
+        </Link>
         <button
           type="button"
           className="sider-handle"

@@ -2,7 +2,7 @@
 
 import { type Client, type ClientMeta, formDataBodySerializer, type Options as Options2, type RequestResult, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { ChatsCreateData, ChatsCreateErrors, ChatsCreateResponses, ChatsDeleteData, ChatsDeleteErrors, ChatsDeleteResponses, ChatsGetData, ChatsGetErrors, ChatsGetResponses, ChatsListData, ChatsListResponses, ChatsUpdateData, ChatsUpdateErrors, ChatsUpdateResponses, DocumentsDeleteData, DocumentsDeleteErrors, DocumentsDeleteResponses, DocumentsDownloadData, DocumentsDownloadErrors, DocumentsDownloadResponses, DocumentsListData, DocumentsListErrors, DocumentsListResponses, DocumentsUploadData, DocumentsUploadErrors, DocumentsUploadResponses, HealthCheckData, HealthCheckResponses, MessagesCreateData, MessagesCreateErrors, MessagesCreateResponses, MessagesListData, MessagesListErrors, MessagesListResponses } from './types.gen';
+import type { ChatsCreateData, ChatsCreateErrors, ChatsCreateResponses, ChatsDeleteData, ChatsDeleteErrors, ChatsDeleteResponses, ChatsGetData, ChatsGetErrors, ChatsGetResponses, ChatsListData, ChatsListResponses, ChatsUpdateData, ChatsUpdateErrors, ChatsUpdateResponses, DocumentsDeleteData, DocumentsDeleteErrors, DocumentsDeleteResponses, DocumentsDownloadData, DocumentsDownloadErrors, DocumentsDownloadResponses, DocumentsListData, DocumentsListErrors, DocumentsListResponses, DocumentsUploadData, DocumentsUploadErrors, DocumentsUploadResponses, EvaluationGetData, EvaluationGetErrors, EvaluationGetResponses, EvaluationLatestData, EvaluationLatestResponses, EvaluationListData, EvaluationListResponses, HealthCheckData, HealthCheckResponses, MessagesCreateData, MessagesCreateErrors, MessagesCreateResponses, MessagesListData, MessagesListErrors, MessagesListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -101,6 +101,21 @@ export const messagesCreate = <ThrowOnError extends boolean = false>(options: Op
         ...options.headers
     }
 });
+
+/**
+ * Latest
+ */
+export const evaluationLatest = <ThrowOnError extends boolean = false>(options?: Options<EvaluationLatestData, ThrowOnError>): RequestResult<EvaluationLatestResponses, unknown, ThrowOnError> => (options?.client ?? client).get<EvaluationLatestResponses, unknown, ThrowOnError>({ url: '/evaluation', ...options });
+
+/**
+ * List
+ */
+export const evaluationList = <ThrowOnError extends boolean = false>(options?: Options<EvaluationListData, ThrowOnError>): RequestResult<EvaluationListResponses, unknown, ThrowOnError> => (options?.client ?? client).get<EvaluationListResponses, unknown, ThrowOnError>({ url: '/evaluation/runs', ...options });
+
+/**
+ * Get
+ */
+export const evaluationGet = <ThrowOnError extends boolean = false>(options: Options<EvaluationGetData, ThrowOnError>): RequestResult<EvaluationGetResponses, EvaluationGetErrors, ThrowOnError> => (options.client ?? client).get<EvaluationGetResponses, EvaluationGetErrors, ThrowOnError>({ url: '/evaluation/runs/{run_id}', ...options });
 
 /**
  * Check
